@@ -1,0 +1,6 @@
+---
+- src: https://github.com/carlosfrias/apigee-opdk-setup-default-settings
+
+- src: https://github.com/carlosfrias/apigee-opdk-validate-external-port-connectivity-server
+
+- src: https://github.com/carlosfrias/apigee-opdk-validate-external-port-connectivity-client
