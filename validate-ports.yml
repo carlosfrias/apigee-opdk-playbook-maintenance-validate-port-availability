@@ -1,0 +1,8 @@
+---
+- include: configuration/update_cache.yml
+  tags:
+  - facts
+
+- include: validation/opdk-external-port-connectivity-validator.yml
+  tags:
+  - validate
