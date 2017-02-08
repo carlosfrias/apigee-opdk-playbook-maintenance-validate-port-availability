@@ -3,6 +3,6 @@
   tags:
   - facts
 
-- include: validation/opdk-external-port-connectivity-validator.yml
+- include: validations/opdk-external-port-connectivity-validator.yml
   tags:
   - validate
