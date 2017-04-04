@@ -1,8 +1,6 @@
 ---
-- include: configuration/update_cache.yml
-  tags:
-  - facts
+- include: update_cache.yml
+  tags: ['cache']
 
-- include: validations/opdk-external-port-connectivity-validator.yml
-  tags:
-  - validate
+- include: opdk-external-port-connectivity-validator.yml
+  tags: ['validate']
