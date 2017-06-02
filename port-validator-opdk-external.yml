@@ -212,17 +212,20 @@
   tags:
   - ms_read_ldap
 
-
-- hosts: pg
+- name: Configure port connectivity validation server on Postgres ports
+  hosts: pg
+  gather_facts: no
+  tags: ['pg']
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ pg_jmx_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ pg_int_mgmt_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ pg_db_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ pg_ext_mgmt_port }}' }
-  tags:
-  - pg_read_pg
 
-- hosts: pg
+- name: Validate port connectivity with port connectivity client on Postgres ports
+  hosts: pg
+  gather_facts: no
+  tags: ['pg']
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_jmx_port }}', target_server: "{{ hostvars[groups['pg'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_int_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][0]].local_address }}" }
@@ -233,21 +236,22 @@
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_int_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][1]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_db_port }}', target_server: "{{ hostvars[groups['pg'][1]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_ext_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][1]].local_address }}" }
-  tags:
-  - pg_read_pg
 
-
-- hosts: qpid
+- name: Configure port connectivity validation server on Postgres ports
+  hosts: qpid
+  gather_facts: no
+  tags: ['qpid']
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ qpid_jmx_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ qpid_int_mgmt_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ qpid_messaging_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ qpid_ext_mgmt_port }}' }
-  tags:
-  - pg_read_qpid
+
 
 - hosts: pg
-  roles: 
+  gather_facts: no
+  tags: ['qpid']
+  roles:
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_jmx_port }}', target_server: "{{ hostvars[groups['qpid'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_int_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_messaging_port }}', target_server: "{{ hostvars[groups['qpid'][0]].local_address }}" }
@@ -257,5 +261,3 @@
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_int_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][1]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_messaging_port }}', target_server: "{{ hostvars[groups['qpid'][1]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_ext_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][1]].local_address }}" }
-  tags:
-  - pg_read_qpid
