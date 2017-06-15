@@ -9,9 +9,12 @@
 
 - hosts: ds
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
+#  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "127.0.0.1" }
+#  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "127.0.0.1" }
+#  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "127.0.0.1" }
   tags:
   - ds_read_ms
 
