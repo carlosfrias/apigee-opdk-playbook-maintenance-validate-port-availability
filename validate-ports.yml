@@ -1,6 +1,26 @@
 ---
-- include: update_cache.yml
+- import_playbook: update_cache.yml
   tags: ['cache']
 
-- include: port-validator-opdk-external.yml
-  tags: ['validate']
+#- include: port-validator-opdk-external-planet.yml
+#  tags: ['validate']
+
+- import_playbook: port-validator-opdk-external-ms.yml
+  tags: ['readable-ms']
+
+- import_playbook: port-validator-opdk-external-ds.yml
+  tags: ['readable-ds']
+
+- import_playbook: port-validator-opdk-external-rmp.yml
+  tags: ['readable-rmp']
+
+- import_playbook: port-validator-opdk-external-openldap.yml
+  tags: ['readable-ldap']
+
+#- import_playbook: port-validator-opdk-external-qpid.yml
+#  tags: ['readable-qpid']
+#
+#- import_playbook: port-validator-opdk-external-pg.yml
+#  tags: ['readable-pg']
+
+

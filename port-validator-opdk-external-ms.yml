@@ -1,0 +1,92 @@
+---
+- name: Create validation server instances for MS target
+  hosts: "{{ target_region }}-ms"
+  gather_facts: no
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_ext_mgmt_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_jmx_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ui_http_port }}' }
+  tags:
+  - ds_read_ms
+  - rmp_read_ms
+  - qpid_read_ms
+  - pg_read_ms
+
+- name: Read check from MS validation server instances from DS
+  hosts: ds
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ms"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  tags:
+  - ds_read_ms
+
+- name: Read check from MS validation server instances from RMP
+  hosts: rmp
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ms"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  tags:
+  - rmp_read_ms
+
+- name: Read check from MS validation server instances from QPID
+  hosts: qpid
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ms"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  tags:
+  - qpid_read_ms
+
+- name: Read check from MS validation server instances from PG
+  hosts: pg
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ms"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  tags:
+  - pg_read_ms
+
+- name: Shutdown and clean up validation server instances from MS
+  hosts: dc-2-ms
+  gather_facts: no
+  pre_tasks:
+    - name: Construct group_id for target server
+      set_fact:
+        cacheable: yes
+        group_id: "{{ target_region }}-ms"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  tags:
+  - read_ms_done
+  - ds_read_ms
+  - rmp_read_ms
+  - qpid_read_ms
+  - pg_read_ms

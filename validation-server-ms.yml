@@ -1,0 +1,17 @@
+---
+# TODO: Not getting used, consider deleting shortly
+- name: Create validation servers on each target host for each port
+  hosts: "{{ target_region }}-ms"
+  gather_facts: no
+  tasks:
+  - name: Check connectivity from DS {{ inventory_hostname }} to MS port:{{ item }}
+    include_role:
+      name: apigee-opdk-validate-external-port-connectivity-server
+    vars:
+      check_port: '{{ item }}'
+    with_items:
+    - "{{ ms_ext_mgmt_port }}"
+    - "{{ ms_jmx_port }}"
+    - "{{ ui_http_port }}"
+  tags:
+  - ds_read_ms

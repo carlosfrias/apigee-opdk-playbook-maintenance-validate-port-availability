@@ -1,0 +1,35 @@
+---
+- name: Create validation server instances for LDAP target
+  hosts: "{{ target_region }}-ldap"
+  gather_facts: no
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ldap_data_port }}' }
+  tags:
+  - ms_read_ldap
+
+- name: Read check on LDAP validation server instances from MS
+  hosts: "{{ target_region }}-ms"
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ldap"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ldap_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  tags:
+  - ms_read_ldap
+
+- name: Shutdown and clean up validation server instances from LDAP
+  hosts: "{{ target_region }}-ldap"
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ldap"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ldap_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  tags:
+  - read_ldap_done
+  - ms_read_ldap

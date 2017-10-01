@@ -1,0 +1,59 @@
+---
+- name: Create validation server instances for RMP target
+  hosts: "{{ target_region }}-rmp"
+  gather_facts: no
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ edge_proxy_port }}' }
+  tags:
+  - ms_read_rmp
+
+- name: Read check from RMP validation server instances from RMP
+  hosts: "{{ target_region }}-rmp"
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-rmp"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][3]].local_address }}" }
+  tags:
+  - ms_read_rmp
+
+- name: Read check from RMP validation server instances from RMP
+  hosts: "{{ target_region }}-ms"
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-rmp"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][3]].local_address }}" }
+  tags:
+  - ms_read_rmp
+
+
+- name: Shutdown and clean up validation server instances from RMP
+  hosts: "{{ target_region }}-rmp"
+  gather_facts: no
+  pre_tasks:
+    - name: Construct group_id for target server
+      set_fact:
+        cacheable: yes
+        group_id: "{{ target_region }}-rmp"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][3]].local_address }}" }
+  tags:
+  - read_rmp_done
+  - ms_read_rmp
+

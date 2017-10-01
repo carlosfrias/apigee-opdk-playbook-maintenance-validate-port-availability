@@ -1,21 +1,47 @@
 ---
-- hosts: ms
-  roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_ext_mgmt_port }}' }
-  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_jmx_port }}' }
-  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ui_http_port }}' }
+- name: Create validation servers on each target host for each port
+  hosts: "{{ target_region }}-ms"
+  gather_facts: no
+  tasks:
+  - name: Create instance of validation server on MS {{ inventory_hostname }} for target port
+    include_role:
+      name: apigee-opdk-validate-external-port-connectivity-server
+    vars:
+      check_port: '{{ item }}'
+    with_items:
+    - "{{ ms_ext_mgmt_port }}"
+    - "{{ ms_jmx_port }}"
+    - "{{ ui_http_port }}"
   tags:
   - ds_read_ms
 
-- hosts: ds
-  roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
+- name: Create and invoke validation server with client on each target host for each port
+  hosts: "{{ target_region }}-ds"
+  gather_facts: no
+  tasks:
+  - name: Construct group name
+    set_fact:
+      group_id: "{{ target_region }}-ms"
+      target_server: "groups['{{ group_id }}'][0]"
+
+  - name: Invoke validation server on MS for each target port
+    include_role:
+      name: apigee-opdk-validate-external-port-connectivity-client
+    vars:
+      check_port: "{{ item }}"
+    with_items:
+    - { port: "{{ ms_ext_mgmt_port }}", target_server: "groups['{{ group_id }}'][0]" }
+    - { port: "{{ ms_jmx_port }}", target_server: "groups['{{ group_id }}'][0]" }
+    - { port: "{{ ui_http_port }}", target_server: "groups['{{ group_id }}'][0]" }
   tags:
   - ds_read_ms
+#  roles:
+#  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
+#  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
+#  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
 
 - hosts: ms
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_ext_mgmt_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_jmx_port }}' }
@@ -24,6 +50,7 @@
   - rmp_read_ms
 
 - hosts: rmp
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
@@ -32,6 +59,7 @@
   - rmp_read_ms
 
 - hosts: ms
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_ext_mgmt_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_jmx_port }}' }
@@ -40,6 +68,7 @@
   - qpid_read_ms
 
 - hosts: qpid
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
@@ -48,6 +77,7 @@
   - qpid_read_ms
 
 - hosts: ms
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_ext_mgmt_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_jmx_port }}' }
@@ -56,6 +86,7 @@
   - pg_read_ms
 
 - hosts: pg
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].local_address }}" }
@@ -64,6 +95,7 @@
   - pg_read_ms
 
 - hosts: ds
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_jmx_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_thrift_client_port }}' }
@@ -72,10 +104,11 @@
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ zk_data_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ zk_leader_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ zk_voter_port }}' }
-  tags: 
+  tags:
   - ds_read_ds
-  
+
 - hosts: ds
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}"  }
@@ -98,11 +131,12 @@
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}"  }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}"  }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}"  }
-  tags: 
+  tags:
   - ds_read_ds
 
 
 - hosts: ds
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_jmx_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_thrift_client_port }}' }
@@ -115,6 +149,7 @@
   - rmp_read_ds
 
 - hosts: rmp
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}"  }
@@ -143,12 +178,14 @@
   - rmp_read_ds
 
 - hosts: rmp
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ edge_proxy_port }}' }
   tags:
   - ms_read_rmp
 
 - hosts: ms
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ edge_proxy_port }}',target_server: "{{ hostvars[groups['rmp'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ edge_proxy_port }}',target_server: "{{ hostvars[groups['rmp'][1]].local_address }}" }
@@ -161,6 +198,7 @@
 
 
 - hosts: ds
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_jmx_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_thrift_client_port }}' }
@@ -173,6 +211,7 @@
   - qs_read_ds
 
 - hosts: qpid
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}"  }
@@ -201,12 +240,14 @@
   - qs_read_ds
 
 - hosts: ldap
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ldap_data_port }}' }
   tags:
   - ms_read_ldap
 
 - hosts: ms
+  gather_facts: no
   roles:
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ldap_data_port }}', target_server: "{{ hostvars[groups['ldap'][0]].local_address }}" }
   tags:

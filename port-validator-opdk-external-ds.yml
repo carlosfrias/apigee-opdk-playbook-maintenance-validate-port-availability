@@ -1,0 +1,143 @@
+---
+- name: Create validation server instances for DS target
+  hosts: "{{ target_region }}-ds"
+  gather_facts: no
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_jmx_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_thrift_client_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_cql_native_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ cassandra_non_ssl_gossip_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ zk_data_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ zk_leader_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ zk_voter_port }}' }
+  tags:
+  - ds_read_ds
+
+- name: Read check from DS validation server instances from DS
+  hosts: "{{ target_region }}-ds"
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ds"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  tags:
+  - ds_read_ds
+
+
+- name: Read check from DS validation server instances from RMP
+  hosts: rmp
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ds"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  tags:
+  - rmp_read_ds
+
+- name: Read check from DS validation server instances from QPID
+  hosts: qpid
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ds"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}"  }
+
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}"  }
+  tags:
+  - qs_read_ds
+
+
+- name: Shutdown and clean up validation server instances from DS
+  hosts: "{{ target_region }}-ds"
+  gather_facts: no
+  pre_tasks:
+  - name: Construct group_id for target server
+    set_fact:
+      cacheable: yes
+      group_id: "{{ target_region }}-ds"
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}"  }
+  tags:
+  - read_ds_done
+  - rmp_read_ds
+  - qs_read_ds
+
