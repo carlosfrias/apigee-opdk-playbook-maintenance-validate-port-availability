@@ -1,7 +1,0 @@
----
-- hosts: planet
-  gather_facts: no
-  tasks:
-  - debug:
-      var: groups['dc-1-ms']
-
