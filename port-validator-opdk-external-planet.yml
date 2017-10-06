@@ -21,9 +21,9 @@
         cacheable: yes
         group_id: "{{ target_region }}-ms"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
   tags:
   - ds_read_ms
 
@@ -36,9 +36,9 @@
       cacheable: yes
       group_id: "{{ target_region }}-ms"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
   tags:
   - rmp_read_ms
 
@@ -51,9 +51,9 @@
       cacheable: yes
       group_id: "{{ target_region }}-ms"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
   tags:
   - qpid_read_ms
 
@@ -66,9 +66,9 @@
       cacheable: yes
       group_id: "{{ target_region }}-ms"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
   tags:
   - pg_read_ms
 
@@ -81,9 +81,9 @@
         cacheable: yes
         group_id: "{{ target_region }}-ms"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
   tags:
   - read_ms_done
   - ds_read_ms
@@ -113,29 +113,29 @@
 - hosts: qpid
   gather_facts: no
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups['ds'][0]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups['ds'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups['ds'][0]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups['ds'][0]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups['ds'][0]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups['ds'][0]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups['ds'][0]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups['ds'][0]].private_address }}"  }
 
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups['ds'][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups['ds'][1]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups['ds'][1]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups['ds'][1]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups['ds'][1]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups['ds'][1]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups['ds'][1]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups['ds'][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups['ds'][1]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups['ds'][1]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups['ds'][1]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups['ds'][1]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups['ds'][1]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups['ds'][1]].private_address }}"  }
 
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}"  }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups['ds'][2]].local_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_jmx_port }}', target_server: "{{ hostvars[groups['ds'][2]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_thrift_client_port }}', target_server: "{{ hostvars[groups['ds'][2]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_cql_native_port }}', target_server: "{{ hostvars[groups['ds'][2]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ cassandra_non_ssl_gossip_port }}', target_server: "{{ hostvars[groups['ds'][2]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_data_port }}', target_server: "{{ hostvars[groups['ds'][2]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_leader_port }}', target_server: "{{ hostvars[groups['ds'][2]].private_address }}"  }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ zk_voter_port }}', target_server: "{{ hostvars[groups['ds'][2]].private_address }}"  }
   tags:
   - qs_read_ds
 
@@ -149,7 +149,7 @@
 - hosts: ms
   gather_facts: no
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ldap_data_port }}', target_server: "{{ hostvars[groups['ldap'][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ldap_data_port }}', target_server: "{{ hostvars[groups['ldap'][0]].private_address }}" }
   tags:
   - ms_read_ldap
 
@@ -168,15 +168,15 @@
   gather_facts: no
   tags: ['pg']
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_jmx_port }}', target_server: "{{ hostvars[groups['pg'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_int_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_db_port }}', target_server: "{{ hostvars[groups['pg'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_ext_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_jmx_port }}', target_server: "{{ hostvars[groups['pg'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_int_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_db_port }}', target_server: "{{ hostvars[groups['pg'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_ext_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][0]].private_address }}" }
 
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_jmx_port }}', target_server: "{{ hostvars[groups['pg'][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_int_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_db_port }}', target_server: "{{ hostvars[groups['pg'][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_ext_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][1]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_jmx_port }}', target_server: "{{ hostvars[groups['pg'][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_int_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_db_port }}', target_server: "{{ hostvars[groups['pg'][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ pg_ext_mgmt_port }}', target_server: "{{ hostvars[groups['pg'][1]].private_address }}" }
 
 - name: Configure port connectivity validation server on Postgres ports
   hosts: qpid
@@ -193,12 +193,12 @@
   gather_facts: no
   tags: ['qpid']
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_jmx_port }}', target_server: "{{ hostvars[groups['qpid'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_int_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_messaging_port }}', target_server: "{{ hostvars[groups['qpid'][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_ext_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_jmx_port }}', target_server: "{{ hostvars[groups['qpid'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_int_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_messaging_port }}', target_server: "{{ hostvars[groups['qpid'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_ext_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][0]].private_address }}" }
     
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_jmx_port }}', target_server: "{{ hostvars[groups['qpid'][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_int_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_messaging_port }}', target_server: "{{ hostvars[groups['qpid'][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_ext_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][1]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_jmx_port }}', target_server: "{{ hostvars[groups['qpid'][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_int_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_messaging_port }}', target_server: "{{ hostvars[groups['qpid'][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ qpid_ext_mgmt_port }}', target_server: "{{ hostvars[groups['qpid'][1]].private_address }}" }

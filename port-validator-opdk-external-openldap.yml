@@ -16,7 +16,7 @@
       cacheable: yes
       group_id: "{{ target_region }}-ldap"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ldap_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ldap_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
   tags:
   - ms_read_ldap
 
@@ -29,7 +29,7 @@
       cacheable: yes
       group_id: "{{ target_region }}-ldap"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ldap_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ldap_data_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
   tags:
   - read_ldap_done
   - ms_read_ldap

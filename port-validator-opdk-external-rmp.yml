@@ -16,10 +16,10 @@
       cacheable: yes
       group_id: "{{ target_region }}-rmp"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][3]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][2]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][3]].private_address }}" }
   tags:
   - ms_read_rmp
 
@@ -32,10 +32,10 @@
       cacheable: yes
       group_id: "{{ target_region }}-rmp"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][3]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][2]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][3]].private_address }}" }
   tags:
   - ms_read_rmp
 
@@ -49,10 +49,10 @@
         cacheable: yes
         group_id: "{{ target_region }}-rmp"
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][0]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][1]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][2]].local_address }}" }
-  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][3]].local_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][1]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][2]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ edge_proxy_port }}', target_server: "{{ hostvars[groups[group_id][3]].private_address }}" }
   tags:
   - read_rmp_done
   - ms_read_rmp
