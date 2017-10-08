@@ -73,7 +73,7 @@
   - pg_read_ms
 
 - name: Shutdown and clean up validation server instances from MS
-  hosts: dc-2-ms
+  hosts: dc2-ms
   gather_facts: no
   pre_tasks:
     - name: Construct group_id for target server
