@@ -4,7 +4,7 @@
   - ~/.apigee-secure/credentials.yml
   pre_tasks:
   - setup:
-  - ec2_facts:
+  - ec2_metadata_facts:
     when: "{{ ansible_bios_version | lower | search('amazon') }}"
   roles:
   - apigee-opdk-setup-default-settings
