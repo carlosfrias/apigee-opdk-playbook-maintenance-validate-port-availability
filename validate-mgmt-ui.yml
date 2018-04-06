@@ -1,0 +1,41 @@
+---
+- name: Create test servers for Management Server Ports
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  tags: ['create']
+  vars:
+    ssl_port: 443
+    http_port: 80
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: 'ui_http_port' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: 'ms_ext_mgmt_port' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: 'ssl_port' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: 'http_port' }
+
+- name: Create test servers for Management Server Ports
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  tags: ['validate']
+  vars:
+    ssl_port: 443
+    http_port: 80
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ target_hosts }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ target_hosts }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: 'ssl_port', target_server: "{{ target_hosts }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: 'http_port', target_server: "{{ target_hosts }}" }
+
+
+- name: Create test servers for Management Server Ports
+  hosts: "{{ target_hosts }}"
+  gather_facts: no
+  tags: ['done']
+  vars:
+    ssl_port: 443
+    http_port: 80
+  roles:
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ target_hosts }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: '{{ ui_http_port }}', target_server: "{{ target_hosts }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: 'ssl_port', target_server: "{{ target_hosts }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client-done, check_port: 'http_port', target_server: "{{ target_hosts }}" }
+
