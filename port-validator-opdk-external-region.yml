@@ -9,7 +9,7 @@
     vars:
       check_port: '{{ item }}'
     with_items:
-    - "{{ ms_ext_mgmt_port }}"
+    - "{{   ms_port }}"
     - "{{ ms_jmx_port }}"
     - "{{ ui_http_port }}"
   tags:
@@ -30,20 +30,20 @@
     vars:
       check_port: "{{ item }}"
     with_items:
-    - { port: "{{ ms_ext_mgmt_port }}", target_server: "groups['{{ group_id }}'][0]" }
+    - { port: "{{   ms_port }}", target_server: "groups['{{ group_id }}'][0]" }
     - { port: "{{ ms_jmx_port }}", target_server: "groups['{{ group_id }}'][0]" }
     - { port: "{{ ui_http_port }}", target_server: "groups['{{ group_id }}'][0]" }
   tags:
   - ds_read_ms
 #  roles:
-#  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
+#  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{   ms_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
 #  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
 #  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
 
 - hosts: ms
   gather_facts: no
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_ext_mgmt_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{   ms_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_jmx_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ui_http_port }}' }
   tags:
@@ -52,7 +52,7 @@
 - hosts: rmp
   gather_facts: no
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{   ms_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
   tags:
@@ -61,7 +61,7 @@
 - hosts: ms
   gather_facts: no
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_ext_mgmt_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{   ms_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_jmx_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ui_http_port }}' }
   tags:
@@ -70,7 +70,7 @@
 - hosts: qpid
   gather_facts: no
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{   ms_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
   tags:
@@ -79,7 +79,7 @@
 - hosts: ms
   gather_facts: no
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_ext_mgmt_port }}' }
+  - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{   ms_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ms_jmx_port }}' }
   - { role: apigee-opdk-validate-external-port-connectivity-server, check_port: '{{ ui_http_port }}' }
   tags:
@@ -88,7 +88,7 @@
 - hosts: pg
   gather_facts: no
   roles:
-  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_ext_mgmt_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
+  - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{   ms_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ms_jmx_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
   - { role: apigee-opdk-validate-external-port-connectivity-client, check_port: '{{ ui_http_port }}', target_server: "{{ hostvars[groups['ms'][0]].private_address }}" }
   tags:
